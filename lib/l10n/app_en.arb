@@ -1,4 +1,8 @@
 {
   "@@locale": "en",
-  "appTitle": "Weather"
+  "appTitle": "Weather",
+  "refresh_All_Tool_Tip": "Refresh All",
+  "enter_city_name": "Enter City Name",
+  "city_name_hint": "e.g. Colombo",
+  "add": "Add"
 }

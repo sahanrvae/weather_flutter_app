@@ -98,6 +98,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Weather'**
   String get appTitle;
+
+  /// No description provided for @refresh_All_Tool_Tip.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh All'**
+  String get refresh_All_Tool_Tip;
+
+  /// No description provided for @enter_city_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter City Name'**
+  String get enter_city_name;
+
+  /// No description provided for @city_name_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Colombo'**
+  String get city_name_hint;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

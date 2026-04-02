@@ -10,4 +10,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appTitle => 'Weather';
+
+  @override
+  String get refresh_All_Tool_Tip => 'Refresh All';
+
+  @override
+  String get enter_city_name => 'Enter City Name';
+
+  @override
+  String get city_name_hint => 'e.g. Colombo';
+
+  @override
+  String get add => 'Add';
 }
