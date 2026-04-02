@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/config/api_config.dart';
 import 'package:weather_app/extensions/l10n_extension.dart';
 import 'package:weather_app/l10n/app_localizations.dart';
 import 'package:weather_app/resources/app_colors.dart';
@@ -77,5 +78,6 @@ class _CountryListScreenState extends State<CountryListScreen> {
       return;
     }
     print("City Name: $text");
+    print('${AppConfig.apiKey}');
   }
 }
