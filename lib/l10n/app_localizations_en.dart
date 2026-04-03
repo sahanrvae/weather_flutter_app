@@ -36,4 +36,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get error_city_delete_failed => 'Failed to delete city';
+
+  @override
+  String get error_api_general_fail => 'Somthing went wrong';
 }

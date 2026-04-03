@@ -146,6 +146,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to delete city'**
   String get error_city_delete_failed;
+
+  /// No description provided for @error_api_general_fail.
+  ///
+  /// In en, this message translates to:
+  /// **'Somthing went wrong'**
+  String get error_api_general_fail;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
