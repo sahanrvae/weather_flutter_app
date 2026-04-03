@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/config/api_config.dart';
 import 'package:weather_app/data/city_local_store.dart';
+import 'package:weather_app/data/weather_api_implementation.dart';
 import 'package:weather_app/extensions/l10n_extension.dart';
 import 'package:weather_app/l10n/app_localizations.dart';
 import 'package:weather_app/models/city_model.dart';
@@ -16,6 +17,7 @@ class CountryListScreen extends StatefulWidget {
 class _CountryListScreenState extends State<CountryListScreen> {
   final _cityNameController = TextEditingController();
   final CityLocalStore _cityLocalStore = CityLocalStore();
+  final WeatherApiImplementation _weatherApiImplementation = WeatherApiImplementation();
 
   @override
   void initState() {
@@ -132,6 +134,10 @@ class _CountryListScreenState extends State<CountryListScreen> {
     final cities = await _cityLocalStore.fetchAllCities();
     cities.forEach((city) {
       print("City Name: ${city.name} ID ${city.id}");
+      final currentWeather = _weatherApiImplementation.fetchCurrentWeather(city.name);
+      final forcastWeather = _weatherApiImplementation.fetchForecastWeather(city.name);
+      print("Current Weather: ${currentWeather}");
+      print("Forcast Weather: ${forcastWeather}");
     });
   }
 
