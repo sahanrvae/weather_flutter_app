@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/globals.dart';
 import 'package:weather_app/l10n/app_localizations.dart';
 import 'package:weather_app/screens/country_list_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    globalL10n = AppLocalizations.of(context);
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,

@@ -122,6 +122,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add'**
   String get add;
+
+  /// No description provided for @error_empty_city_name.
+  ///
+  /// In en, this message translates to:
+  /// **'City name is empty'**
+  String get error_empty_city_name;
+
+  /// No description provided for @error_city_already_exists.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} already exists'**
+  String error_city_already_exists(Object name);
+
+  /// No description provided for @error_city_not_found.
+  ///
+  /// In en, this message translates to:
+  /// **'City not found'**
+  String get error_city_not_found;
+
+  /// No description provided for @error_city_delete_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete city'**
+  String get error_city_delete_failed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
