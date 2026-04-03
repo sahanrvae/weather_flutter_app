@@ -132,13 +132,13 @@ class _CountryListScreenState extends State<CountryListScreen> {
 
   Future<void> getAllCities() async {
     final cities = await _cityLocalStore.fetchAllCities();
-    cities.forEach((city) {
+    for (final city in cities) {
       print("City Name: ${city.name} ID ${city.id}");
-      final currentWeather = _weatherApiImplementation.fetchCurrentWeather(city.name);
-      final forcastWeather = _weatherApiImplementation.fetchForecastWeather(city.name);
+      final currentWeather = await _weatherApiImplementation.fetchCurrentWeather(city.name);
+      final forcastWeather = await _weatherApiImplementation.fetchForecastWeather(city.name);
       print("Current Weather: ${currentWeather}");
       print("Forcast Weather: ${forcastWeather}");
-    });
+    };
   }
 
   Future<void> _saveCity() async {
