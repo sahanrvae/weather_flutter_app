@@ -152,6 +152,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Somthing went wrong'**
   String get error_api_general_fail;
+
+  /// No description provided for @add_city_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Add new city to see weather...'**
+  String get add_city_placeholder;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

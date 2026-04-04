@@ -39,4 +39,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get error_api_general_fail => 'Somthing went wrong';
+
+  @override
+  String get add_city_placeholder => 'Add new city to see weather...';
 }

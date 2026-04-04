@@ -18,6 +18,8 @@ class WeatherCitiesProvider extends ChangeNotifier {
    String? errorFor(int cityId) => _error[cityId];
    bool isLoading(int cityId) => _loading.contains(cityId);
 
+   List<City> get cities => List.unmodifiable(_cities);
+
    CityWeather? weatherByCityId(int cityId) {
     final i = _cities.indexWhere((c) => c.id == cityId);
     if (i < 0) {

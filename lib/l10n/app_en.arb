@@ -9,5 +9,6 @@
   "error_city_already_exists": "{name} already exists",
   "error_city_not_found": "City not found",
   "error_city_delete_failed": "Failed to delete city",
-  "error_api_general_fail": "Somthing went wrong"
+  "error_api_general_fail": "Somthing went wrong",
+  "add_city_placeholder": "Add new city to see weather..."
 }

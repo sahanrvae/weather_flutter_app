@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/config/api_config.dart';
 import 'package:weather_app/data/city_local_store.dart';
 import 'package:weather_app/data/weather_api_implementation.dart';
 import 'package:weather_app/extensions/l10n_extension.dart';
 import 'package:weather_app/l10n/app_localizations.dart';
 import 'package:weather_app/models/city_model.dart';
+import 'package:weather_app/provider/weather_cities_provider.dart';
 import 'package:weather_app/resources/app_colors.dart';
+import 'package:weather_app/widgets/city_card.dart';
 
 class CountryListScreen extends StatefulWidget {
   const CountryListScreen({super.key});
@@ -88,6 +91,33 @@ class _CountryListScreenState extends State<CountryListScreen> {
               ],
             ),
           ),
+          Expanded(
+            child: Consumer<WeatherCitiesProvider>(builder: (context, provider, child) {
+                if (provider.cities.isEmpty) {
+                  return Center(
+                    child: Text(context.l10n.add_city_placeholder, 
+                    style: Theme.of(context).textTheme.bodyLarge,),
+                  );
+                }
+                return ListView.builder(
+                  itemBuilder:(context, index) {
+                    final city = provider.cities[index];
+                    final weather = provider.weatherByCityId(city.id);
+                    final error_item = provider.errorFor(city.id);
+                    final loadingData = provider.isLoading(city.id);
+                    return CityCard(
+                      cityName: city.name, 
+                      weather: weather, 
+                      error: error_item, 
+                      loading: loadingData
+                      );
+                  },
+                  itemCount: provider.cities.length,
+                  padding: const EdgeInsets.only(bottom: 16),
+                );
+              }
+            ),
+          )
         ],
       ),
     );
