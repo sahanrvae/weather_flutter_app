@@ -4,5 +4,10 @@
   "refresh_All_Tool_Tip": "Refresh All",
   "enter_city_name": "Enter City Name",
   "city_name_hint": "e.g. Colombo",
-  "add": "Add"
+  "add": "Add",
+  "error_empty_city_name": "City name is empty",
+  "error_city_already_exists": "{name} already exists",
+  "error_city_not_found": "City not found",
+  "error_city_delete_failed": "Failed to delete city",
+  "error_api_general_fail": "Somthing went wrong"
 }

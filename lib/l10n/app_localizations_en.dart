@@ -22,4 +22,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get add => 'Add';
+
+  @override
+  String get error_empty_city_name => 'City name is empty';
+
+  @override
+  String error_city_already_exists(Object name) {
+    return '$name already exists';
+  }
+
+  @override
+  String get error_city_not_found => 'City not found';
+
+  @override
+  String get error_city_delete_failed => 'Failed to delete city';
+
+  @override
+  String get error_api_general_fail => 'Somthing went wrong';
 }
