@@ -83,12 +83,12 @@ class CityCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Humidity ${weather!.current.humidity}% · Wind ${weather!.current.windKph.round()} km/h',
+                  'Humidity ${weather!.current.humidity}% | Wind ${weather!.current.windKph.round()} km/h',
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Swipe left to remove · Tap for forecast',
+                  'Swipe left to remove | Tap for forecast',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],
