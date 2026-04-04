@@ -109,7 +109,9 @@ class _CountryListScreenState extends State<CountryListScreen> {
                       cityName: city.name, 
                       weather: weather, 
                       error: error_item, 
-                      loading: loadingData
+                      loading: loadingData, 
+                      onTap:  () => print(city), 
+                      onRefresh: () => provider.refreshCity(city.id)
                       );
                   },
                   itemCount: provider.cities.length,

@@ -8,18 +8,23 @@ class CityCard extends StatelessWidget {
     required this.weather,
     required this.error,
     required this.loading,
+    required this.onTap,
+    required this.onRefresh,
   });
 
   final String cityName;
   final CityWeather? weather;
   final String? error;
   final bool loading;
+  final VoidCallback? onTap;
+  final VoidCallback onRefresh;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -32,6 +37,17 @@ class CityCard extends StatelessWidget {
                       cityName,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
+                  ),
+                  IconButton(
+                    tooltip: 'Refresh',
+                    onPressed: onRefresh,
+                    icon: loading
+                        ? const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.refresh),
                   ),
                 ],
               ),
