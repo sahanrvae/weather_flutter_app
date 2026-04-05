@@ -7,7 +7,7 @@ class WeatherCitiesProvider extends ChangeNotifier {
 
   final WeatherRepository _repository;
   // Listners
-  final List<CityWeather?> _weatherDetailsById = [];
+  final List<CityWeather?> _weatherDetail = [];
   final Map<int, String?> _error = {};
   final Set<int> _loading = {};
   List<City> _cities = [];
@@ -18,12 +18,14 @@ class WeatherCitiesProvider extends ChangeNotifier {
    String? errorFor(int cityId) => _error[cityId];
    bool isLoading(int cityId) => _loading.contains(cityId);
 
+   List<City> get cities => List.unmodifiable(_cities);
+
    CityWeather? weatherByCityId(int cityId) {
     final i = _cities.indexWhere((c) => c.id == cityId);
     if (i < 0) {
       return null;
     }
-    final weatherCityDetails = i < _weatherDetailsById.length ? _weatherDetailsById[i] : null;
+    final weatherCityDetails = i < _weatherDetail.length ? _weatherDetail[i] : null;
     return weatherCityDetails;
    }
 
@@ -38,10 +40,10 @@ class WeatherCitiesProvider extends ChangeNotifier {
         final weather = await _repository.fetchCityWeatherDetails(city);
         final indexofCity = _cities.indexWhere((c) => c.id == cityId);
         if (indexofCity >= 0) {
-          while (_weatherDetailsById.length <= indexofCity) {
-            _weatherDetailsById.add(null);
+          while (_weatherDetail.length <= indexofCity) {
+            _weatherDetail.add(null);
           }
-          _weatherDetailsById[indexofCity] = weather;
+          _weatherDetail[indexofCity] = weather;
           _error[cityId] = null;
         } else {
           return;
@@ -53,13 +55,11 @@ class WeatherCitiesProvider extends ChangeNotifier {
         notifyListeners();
       }
     }
-    
-    
    }
 
    Future<void> fetchInitialWeatherDetails() async {
     _cities = await _repository.getCityList();
-    _weatherDetailsById
+    _weatherDetail
       ..clear()
       ..addAll(List<CityWeather?>.filled(_cities.length, null));
       _error.clear();
@@ -78,6 +78,7 @@ class WeatherCitiesProvider extends ChangeNotifier {
         _cities = [..._cities, savedCity]..sort(
           (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase())
         );
+        reBuildCitiesList();
         notifyListeners();
         final cityIndex = _cities.indexWhere((c) => c.id == savedCity.id);
         if (cityIndex >= 0) {
@@ -94,6 +95,7 @@ class WeatherCitiesProvider extends ChangeNotifier {
     _cities = _cities.where((c) => c.id != id).toList();
     _error.remove(id);
     _loading.remove(id);
+    reBuildCitiesList();
     notifyListeners();
    }
 
@@ -101,6 +103,16 @@ class WeatherCitiesProvider extends ChangeNotifier {
     final index = _cities.indexWhere((c) => c.id == id);
     if (index < 0) return;
     await _fetchCityIndex(index);
+   }
+
+   void reBuildCitiesList() {
+      final id = <int, CityWeather?>{};
+      for(var i = 0; i < _cities.length && i < _weatherDetail.length; i++) {
+        id[_cities[i].id] = _weatherDetail[i];
+      }
+      _weatherDetail
+        ..clear()
+        ..addAll(_cities.map((city) => id[city.id]));
    }
   
 }
