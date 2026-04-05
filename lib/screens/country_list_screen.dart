@@ -48,6 +48,20 @@ class _CountryListScreenState extends State<CountryListScreen> {
           ),
         ],
       ),
+      floatingActionButton: SizedBox(
+        width: 36,
+        height: 36,
+        child: FloatingActionButton(
+            onPressed: () => refreshList(context),
+            tooltip: context.l10n.refresh_All_Tool_Tip,
+            backgroundColor: Colors.blue.withOpacity(0.4),
+            child: const Icon(
+              Icons.bolt,
+              color: Colors.yellow,
+            ),  
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Column(
         children: [
           Expanded(
@@ -64,14 +78,17 @@ class _CountryListScreenState extends State<CountryListScreen> {
                     final weather = provider.weatherByCityId(city.id);
                     final error_item = provider.errorFor(city.id);
                     final loadingData = provider.isLoading(city.id);
-                    return CityCard(
-                      cityName: city.name, 
-                      weather: weather, 
-                      error: error_item, 
-                      loading: loadingData, 
-                      onTap:  () => print(city), 
-                      onRefresh: () => provider.refreshCity(city.id)
-                      );
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+                      child: CityCard(
+                        cityName: city.name, 
+                        weather: weather, 
+                        error: error_item, 
+                        loading: loadingData, 
+                        onTap:  () => print(city), 
+                        onRefresh: () => provider.refreshCity(city.id)
+                        ),
+                    );
                   },
                   itemCount: provider.cities.length,
                   padding: const EdgeInsets.only(bottom: 16),
@@ -111,6 +128,13 @@ class _CountryListScreenState extends State<CountryListScreen> {
       isScrollControlled: true,
       showDragHandle: true
     );
+  }
+
+  void refreshList(BuildContext context) {
+    final provider = context.read<WeatherCitiesProvider>();
+    for (final city in provider.cities) {
+      provider.refreshCity(city.id);
+    }
   }
 
   Future<City?> addCity(String name) async {
