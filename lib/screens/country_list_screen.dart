@@ -82,14 +82,36 @@ class _CountryListScreenState extends State<CountryListScreen> {
                     final loadingData = provider.isLoading(city.id);
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-                      child: CityCard(
-                        cityName: city.name, 
-                        weather: weather, 
-                        error: error_item, 
-                        loading: loadingData, 
-                        onTap:  () => weather != null ? _openCityWeatherForecast(context, weather) : null, 
-                        onRefresh: () => provider.refreshCity(city.id)
+                      child: Dismissible(
+                        key: ValueKey("city-${city.id}"),
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.only(right: 20),
+                          color: Theme.of(context).colorScheme.errorContainer,
+                          child: Icon(
+                            Icons.delete_outline,
+                            color: Theme.of(context).colorScheme.onErrorContainer,
+                          ),
                         ),
+                        confirmDismiss: (_) async {
+                          return await showDeleteConfirmation(context, city.name);
+                        },
+                        onDismissed: (_) {
+                            context.read<WeatherCitiesProvider>().removeCityByID(city.id);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Remove ${city.name}"))
+                            );
+                        },
+                        child: CityCard(
+                          cityName: city.name, 
+                          weather: weather, 
+                          error: error_item, 
+                          loading: loadingData, 
+                          onTap:  () => weather != null ? _openCityWeatherForecast(context, weather) : null, 
+                          onRefresh: () => provider.refreshCity(city.id)
+                          ),
+                      ),
                     );
                   },
                   itemCount: provider.cities.length,
@@ -145,6 +167,30 @@ class _CountryListScreenState extends State<CountryListScreen> {
           builder: (_) => CityWeatherForecastScreen(cityWeather: weather)
         )
     );
+  }
+
+  Future<bool> showDeleteConfirmation(BuildContext context, String cityName) async {
+    final confirmation = await showDialog(
+      context: context, 
+      builder: (alertcontext) => AlertDialog(
+        title: Text(alertcontext.l10n.city_delete_confirmation_dialog_title),
+        content: Text(alertcontext.l10n.city_delete_confirmation_dialog_description(cityName)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false), 
+            child: Text(alertcontext.l10n.button_cancel)
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true), 
+            child: Text(alertcontext.l10n.button_delete),
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.red,
+            ),
+          ),
+        ],
+      )
+    );
+    return confirmation;
   }
 
   Future<City?> addCity(String name) async {

@@ -56,4 +56,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cities_screen_add_city_button => 'Add City';
+
+  @override
+  String get city_delete_confirmation_dialog_title => 'Delete City';
+
+  @override
+  String city_delete_confirmation_dialog_description(Object city_name) {
+    return 'Are you sure you want to delete $city_name';
+  }
+
+  @override
+  String get button_cancel => 'Cancel';
+
+  @override
+  String get button_delete => 'Delete';
 }

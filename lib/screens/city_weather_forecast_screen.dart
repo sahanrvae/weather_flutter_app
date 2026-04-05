@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/models/city_weather_model.dart';
 import 'package:weather_app/resources/app_colors.dart';
 import 'package:weather_app/widgets/current_weather_page.dart';
+import 'package:weather_app/widgets/forecast_weather_page.dart';
 
 class CityWeatherForecastScreen extends StatefulWidget {
   final CityWeather cityWeather;
@@ -64,7 +65,8 @@ class _CityWeatherForecastScreenState extends State<CityWeatherForecastScreen> {
               }),
               children: [
                 CurrentWeatherPage(current: currentWeather),
-
+                for (final forecastday in widget.cityWeather.forecastDays)
+                    ForecastWeatherPage(forecast: forecastday)
               ],
             )
           )
