@@ -78,6 +78,7 @@ class WeatherCitiesProvider extends ChangeNotifier {
         _cities = [..._cities, savedCity]..sort(
           (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase())
         );
+        reBuildCitiesList();
         notifyListeners();
         final cityIndex = _cities.indexWhere((c) => c.id == savedCity.id);
         if (cityIndex >= 0) {
@@ -94,6 +95,7 @@ class WeatherCitiesProvider extends ChangeNotifier {
     _cities = _cities.where((c) => c.id != id).toList();
     _error.remove(id);
     _loading.remove(id);
+    reBuildCitiesList();
     notifyListeners();
    }
 
@@ -101,6 +103,16 @@ class WeatherCitiesProvider extends ChangeNotifier {
     final index = _cities.indexWhere((c) => c.id == id);
     if (index < 0) return;
     await _fetchCityIndex(index);
+   }
+
+   void reBuildCitiesList() {
+      final id = <int, CityWeather?>{};
+      for(var i = 0; i < _cities.length && i < _weatherDetailsById.length; i++) {
+        id[_cities[i].id] = _weatherDetailsById[i];
+      }
+      _weatherDetailsById
+        ..clear()
+        ..addAll(_cities.map((city) => id[city.id]));
    }
   
 }
