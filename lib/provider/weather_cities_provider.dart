@@ -7,7 +7,7 @@ class WeatherCitiesProvider extends ChangeNotifier {
 
   final WeatherRepository _repository;
   // Listners
-  final List<CityWeather?> _weatherDetailsById = [];
+  final List<CityWeather?> _weatherDetail = [];
   final Map<int, String?> _error = {};
   final Set<int> _loading = {};
   List<City> _cities = [];
@@ -25,7 +25,7 @@ class WeatherCitiesProvider extends ChangeNotifier {
     if (i < 0) {
       return null;
     }
-    final weatherCityDetails = i < _weatherDetailsById.length ? _weatherDetailsById[i] : null;
+    final weatherCityDetails = i < _weatherDetail.length ? _weatherDetail[i] : null;
     return weatherCityDetails;
    }
 
@@ -40,10 +40,10 @@ class WeatherCitiesProvider extends ChangeNotifier {
         final weather = await _repository.fetchCityWeatherDetails(city);
         final indexofCity = _cities.indexWhere((c) => c.id == cityId);
         if (indexofCity >= 0) {
-          while (_weatherDetailsById.length <= indexofCity) {
-            _weatherDetailsById.add(null);
+          while (_weatherDetail.length <= indexofCity) {
+            _weatherDetail.add(null);
           }
-          _weatherDetailsById[indexofCity] = weather;
+          _weatherDetail[indexofCity] = weather;
           _error[cityId] = null;
         } else {
           return;
@@ -59,7 +59,7 @@ class WeatherCitiesProvider extends ChangeNotifier {
 
    Future<void> fetchInitialWeatherDetails() async {
     _cities = await _repository.getCityList();
-    _weatherDetailsById
+    _weatherDetail
       ..clear()
       ..addAll(List<CityWeather?>.filled(_cities.length, null));
       _error.clear();
@@ -107,10 +107,10 @@ class WeatherCitiesProvider extends ChangeNotifier {
 
    void reBuildCitiesList() {
       final id = <int, CityWeather?>{};
-      for(var i = 0; i < _cities.length && i < _weatherDetailsById.length; i++) {
-        id[_cities[i].id] = _weatherDetailsById[i];
+      for(var i = 0; i < _cities.length && i < _weatherDetail.length; i++) {
+        id[_cities[i].id] = _weatherDetail[i];
       }
-      _weatherDetailsById
+      _weatherDetail
         ..clear()
         ..addAll(_cities.map((city) => id[city.id]));
    }

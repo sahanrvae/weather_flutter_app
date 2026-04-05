@@ -192,44 +192,7 @@ class _CountryListScreenState extends State<CountryListScreen> {
     );
     return confirmation;
   }
-
-  Future<City?> addCity(String name) async {
-    final trimName = name.trim();
-    try {
-      final city = await _cityLocalStore.saveCity(trimName);
-      return city;
-    } on ArgumentError catch (e) {
-      // Empty city name
-      _showSnackbar(e.message);
-      return null;
-    } on StateError catch (e) {
-      // Duplicate city
-      _showSnackbar(e.message);
-      return null;
-    }
-  }
-
-  Future<City?> deleteCity(int id) async {
-    try {
-      final city = await _cityLocalStore.deleteCity(id);
-      return city;
-    } on ArgumentError catch (e) {
-      // Empty city name
-      _showSnackbar(e.message);
-      return null;
-    } on StateError catch (e) {
-      // Duplicate city
-      _showSnackbar(e.message);
-      return null;
-    }
-  }
-
-  void _showSnackbar(String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
-
+  
   Future<void> getAllCities() async {
     final cities = await _cityLocalStore.fetchAllCities();
     for (final city in cities) {
@@ -239,22 +202,6 @@ class _CountryListScreenState extends State<CountryListScreen> {
       print("Current Weather: ${currentWeather}");
       print("Forcast Weather: ${forcastWeather}");
     };
-  }
-
-  Future<void> _saveCity() async {
-    final text = _cityNameController.text;
-    if (text.trim().isEmpty) {
-      return;
-    }
-    print("City Name: $text");
-    final _city = await addCity(text);
-    print("Saved City Name: ${_city?.name ?? ""}");
-    // await _deleteCity(1);
-  }
-
-  Future<void> _deleteCity(int cityID) async {
-    final _city = await deleteCity(cityID);
-    print("Saved City Name: ${_city?.name ?? ""}");
   }
 
 }

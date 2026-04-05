@@ -6,6 +6,7 @@ import 'package:weather_app/globals.dart';
 import 'package:weather_app/l10n/app_localizations.dart';
 import 'package:weather_app/provider/weather_cities_provider.dart';
 import 'package:weather_app/repository/weather_repository.dart';
+import 'package:weather_app/resources/app_colors.dart';
 import 'package:weather_app/screens/country_list_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
           //
           // This works for code too, not just values: Most code changes can be
           // tested with just a hot reload.
-          colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: .fromSeed(seedColor: AppColors.darkBlue),
           useMaterial3: true,
         ),
         localizationsDelegates: [
