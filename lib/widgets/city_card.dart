@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:weather_app/extensions/l10n_extension.dart';
 import 'package:weather_app/models/city_weather_model.dart';
 
 class CityCard extends StatelessWidget {
@@ -39,7 +40,7 @@ class CityCard extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    tooltip: 'Refresh',
+                    tooltip: context.l10n.weather_card_refresh_button_tooltip,
                     onPressed: onRefresh,
                     icon: loading
                         ? const SizedBox(
@@ -88,7 +89,7 @@ class CityCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Swipe left to remove | Tap for forecast',
+                  context.l10n.weather_card_swipe_instruction,
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ],

@@ -9,6 +9,7 @@ import 'package:weather_app/models/city_model.dart';
 import 'package:weather_app/provider/weather_cities_provider.dart';
 import 'package:weather_app/resources/app_colors.dart';
 import 'package:weather_app/widgets/city_card.dart';
+import 'package:weather_app/widgets/city_picker_widget.dart';
 
 class CountryListScreen extends StatefulWidget {
   const CountryListScreen({super.key});
@@ -38,59 +39,17 @@ class _CountryListScreenState extends State<CountryListScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
-              tooltip: context.l10n.refresh_All_Tool_Tip,
+              tooltip: context.l10n.cities_screen_add_city_button,
               onPressed: () {
-                print("Refresh All Data");
+                _openCityPicker(context);
               },
-              icon: const Icon(Icons.refresh),
+              icon: const Icon(Icons.add),
             ),
           ),
         ],
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _cityNameController,
-                    textInputAction: TextInputAction.done,
-                    onSubmitted: (_) => _saveCity(),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.darkBlue),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.darkBlue),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: AppColors.darkBlue,
-                          width: 2.0,
-                        ),
-                      ),
-                      labelText: context.l10n.enter_city_name,
-                      labelStyle: TextStyle(color: AppColors.darkBlue),
-                      hintText: context.l10n.city_name_hint,
-                      isDense: true,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                FilledButton(
-                  onPressed: _saveCity,
-                  child: Text(context.l10n.add),
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(
-                      const Color.fromARGB(255, 46, 100, 250),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
           Expanded(
             child: Consumer<WeatherCitiesProvider>(builder: (context, provider, child) {
                 if (provider.cities.isEmpty) {
@@ -122,6 +81,35 @@ class _CountryListScreenState extends State<CountryListScreen> {
           )
         ],
       ),
+    );
+  }
+
+  void _openCityPicker(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context, 
+      builder: (pickercontext) {
+        final viewInsets = MediaQuery.viewInsetsOf(pickercontext);
+        return AnimatedPadding(
+          padding: EdgeInsets.only(bottom: viewInsets.bottom), 
+          duration: const Duration(microseconds: 100),
+          curve: Curves.easeInOut,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(pickercontext.l10n.cities_screen_add_city_button, style: Theme.of(pickercontext).textTheme.titleLarge),
+                const SizedBox(height: 16),
+                const CityPickerWidget()
+              ],
+            ),
+          ),
+        );
+      },
+      isScrollControlled: true,
+      showDragHandle: true
     );
   }
 
@@ -181,7 +169,7 @@ class _CountryListScreenState extends State<CountryListScreen> {
     print("City Name: $text");
     final _city = await addCity(text);
     print("Saved City Name: ${_city?.name ?? ""}");
-    await _deleteCity(1);
+    // await _deleteCity(1);
   }
 
   Future<void> _deleteCity(int cityID) async {

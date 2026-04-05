@@ -42,4 +42,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get add_city_placeholder => 'Add new city to see weather...';
+
+  @override
+  String get weather_card_swipe_instruction => 'Swipe left to remove | Tap for forecast';
+
+  @override
+  String get weather_card_refresh_button_tooltip => 'Refresh';
+
+  @override
+  String city_picker_city_add_success(Object name) {
+    return '$name added successfully!';
+  }
+
+  @override
+  String get cities_screen_add_city_button => 'Add City';
 }

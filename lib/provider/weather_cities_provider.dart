@@ -55,8 +55,6 @@ class WeatherCitiesProvider extends ChangeNotifier {
         notifyListeners();
       }
     }
-    
-    
    }
 
    Future<void> fetchInitialWeatherDetails() async {

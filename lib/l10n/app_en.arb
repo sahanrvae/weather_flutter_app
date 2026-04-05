@@ -10,5 +10,9 @@
   "error_city_not_found": "City not found",
   "error_city_delete_failed": "Failed to delete city",
   "error_api_general_fail": "Somthing went wrong",
-  "add_city_placeholder": "Add new city to see weather..."
+  "add_city_placeholder": "Add new city to see weather...",
+  "weather_card_swipe_instruction": "Swipe left to remove | Tap for forecast",
+  "weather_card_refresh_button_tooltip": "Refresh",
+  "city_picker_city_add_success": "{name} added successfully!",
+  "cities_screen_add_city_button": "Add City"
 }

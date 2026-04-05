@@ -158,6 +158,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add new city to see weather...'**
   String get add_city_placeholder;
+
+  /// No description provided for @weather_card_swipe_instruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe left to remove | Tap for forecast'**
+  String get weather_card_swipe_instruction;
+
+  /// No description provided for @weather_card_refresh_button_tooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get weather_card_refresh_button_tooltip;
+
+  /// No description provided for @city_picker_city_add_success.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} added successfully!'**
+  String city_picker_city_add_success(Object name);
+
+  /// No description provided for @cities_screen_add_city_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Add City'**
+  String get cities_screen_add_city_button;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
