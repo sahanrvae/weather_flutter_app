@@ -6,8 +6,10 @@ import 'package:weather_app/data/weather_api_implementation.dart';
 import 'package:weather_app/extensions/l10n_extension.dart';
 import 'package:weather_app/l10n/app_localizations.dart';
 import 'package:weather_app/models/city_model.dart';
+import 'package:weather_app/models/city_weather_model.dart';
 import 'package:weather_app/provider/weather_cities_provider.dart';
 import 'package:weather_app/resources/app_colors.dart';
+import 'package:weather_app/screens/city_weather_forecast_screen.dart';
 import 'package:weather_app/widgets/city_card.dart';
 import 'package:weather_app/widgets/city_picker_widget.dart';
 
@@ -85,7 +87,7 @@ class _CountryListScreenState extends State<CountryListScreen> {
                         weather: weather, 
                         error: error_item, 
                         loading: loadingData, 
-                        onTap:  () => print(city), 
+                        onTap:  () => weather != null ? _openCityWeatherForecast(context, weather) : null, 
                         onRefresh: () => provider.refreshCity(city.id)
                         ),
                     );
@@ -135,6 +137,14 @@ class _CountryListScreenState extends State<CountryListScreen> {
     for (final city in provider.cities) {
       provider.refreshCity(city.id);
     }
+  }
+
+  void _openCityWeatherForecast(BuildContext context, CityWeather weather) {
+    Navigator.of(context).push<void>(
+        MaterialPageRoute(
+          builder: (_) => CityWeatherForecastScreen(cityWeather: weather)
+        )
+    );
   }
 
   Future<City?> addCity(String name) async {
