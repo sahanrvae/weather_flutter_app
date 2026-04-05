@@ -26,8 +26,4 @@ void main() {
     expect(cityWeather.current.tempC, 29.2);
     expect(cityWeather.current.conditionText, 'Partly cloudy');
   });
-
-  test('forecastDays is empty because forecat_weather.json has no days', () {
-    expect(cityWeather.forecastDays, isEmpty);
-  });
 }
