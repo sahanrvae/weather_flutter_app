@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/models/city_weather_model.dart';
 import 'package:weather_app/resources/app_colors.dart';
+import 'package:weather_app/widgets/current_weather_page.dart';
 
 class CityWeatherForecastScreen extends StatefulWidget {
   final CityWeather cityWeather;
@@ -31,6 +32,7 @@ class _CityWeatherForecastScreenState extends State<CityWeatherForecastScreen> {
   @override
   Widget build(BuildContext context) {
     final currentWeather = widget.cityWeather.current;
+    final foreCastWeather = widget.cityWeather.forecastDays;
     final title = currentWeather.cityLabel.isNotEmpty ? currentWeather.cityLabel : widget.cityWeather.name;
 
     return Scaffold(
@@ -52,6 +54,19 @@ class _CityWeatherForecastScreenState extends State<CityWeatherForecastScreen> {
                 ),
               );
             }),
+          ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (i) => setState(() {
+                _pageNumber = i;
+              }),
+              children: [
+                CurrentWeatherPage(current: currentWeather),
+
+              ],
+            )
           )
         ],
       ),
