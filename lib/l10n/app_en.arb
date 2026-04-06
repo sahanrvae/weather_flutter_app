@@ -1,6 +1,7 @@
 {
   "@@locale": "en",
   "appTitle": "Weather",
+  "app_title": "Weather App",
   "refresh_All_Tool_Tip": "Refresh All",
   "enter_city_name": "Enter City Name",
   "city_name_hint": "e.g. Colombo",
