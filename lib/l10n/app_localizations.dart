@@ -99,6 +99,12 @@ abstract class AppLocalizations {
   /// **'Weather'**
   String get appTitle;
 
+  /// No description provided for @app_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather App'**
+  String get app_title;
+
   /// No description provided for @refresh_All_Tool_Tip.
   ///
   /// In en, this message translates to:
