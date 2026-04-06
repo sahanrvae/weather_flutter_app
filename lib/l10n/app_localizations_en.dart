@@ -12,6 +12,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Weather';
 
   @override
+  String get app_title => 'Weather App';
+
+  @override
   String get refresh_All_Tool_Tip => 'Refresh All';
 
   @override
