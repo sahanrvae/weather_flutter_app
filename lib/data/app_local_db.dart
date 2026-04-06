@@ -3,6 +3,7 @@ import 'package:path/path.dart' as location;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:weather_app/config/api_config.dart';
+import 'package:weather_app/globals.dart';
 
 class AppLocalDb {
   static final AppLocalDb _instance = AppLocalDb._internal();
@@ -26,7 +27,7 @@ class AppLocalDb {
       // Create table if empty
       _db = await openDatabase(
         path,
-        version: 1,
+        version: dbVersion,
         onCreate: (db, version) async {
           await db.execute(cities_table_query);
         },
